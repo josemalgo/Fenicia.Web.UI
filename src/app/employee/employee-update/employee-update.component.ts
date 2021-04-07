@@ -1,5 +1,4 @@
 import { EmployeeService } from '../../services/employee.service';
-import { AddressService } from '../../services/address.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -7,7 +6,7 @@ import { Employee } from '../../models/employee.model';
 import { Guid } from 'guid-typescript';
 import { Address } from '../../models/address.model';
 import { User } from '../../models/user.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -26,13 +25,13 @@ export class EmployeeUpdateComponent implements OnInit {
     'detail', 'update', 'delete'];
 
   constructor(private employeeService: EmployeeService, private location: Location,
-    private router: Router, private addressService: AddressService) { }
+    private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.fillTableAddress();
+    this.getEmployeeById();
     this.employeeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      //password: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       dni: new FormControl('', [Validators.required, Validators.maxLength(9)]),
       name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       surname: new FormControl('', [Validators.required, Validators.maxLength(60)]),
@@ -41,9 +40,26 @@ export class EmployeeUpdateComponent implements OnInit {
     });
   }
 
-  private fillTableAddress(){
-    this.addressService.getAddressesByIdPerson()
-      .subscribe((data: any) => this.dataSource.data = data.addresses);
+  private getEmployeeById(){
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id == null) {
+      return;
+    }
+    else{
+    this.employeeService.getEmployeesById(id)
+      .subscribe((data: any) => {
+        this.dataSource.data = data.employee.addresses;
+        this.employeeForm.setValue({
+          email: data.employee.email, 
+          dni: data.employee.dni,
+          name: data.employee.name,
+          surname: data.employee.surname,
+          phone: data.employee.phone,
+          job: data.employee.phone,
+          isAdmin: data.employee.isAdmin
+        });
+        });  
+    }
   }
   
   public hasError = (controlName: string, errorName: string) => {
@@ -61,7 +77,7 @@ export class EmployeeUpdateComponent implements OnInit {
   }
 
   private executeEmployeeEdit = (employeeFormValue) => {
-    
+    //Id, updateRegisterUser{id, email, password}, dni, name surname, phone, job, isadmin
     // let user: User = {
     //   id: Guid.EMPTY,
     //   email: employeeFormValue.email,

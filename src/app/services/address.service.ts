@@ -29,12 +29,7 @@ export class AddressService {
     const url = `${this.url}/${id}`;
     return this.http.get<any>(url);
   }
-
-  getAddressesByIdPerson(id: string): Observable<any> {
-    const url = `${this.url}/${id}`;
-    return this.http.get<any>(url)
-  }
-
+  
   addAddress(address: Address): Observable<Guid> {
     return this.http.post<Guid>(this.url, address, httpOptions);
   }

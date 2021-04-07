@@ -13,7 +13,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-  public employee: Employee;
+  public employee: any;
   public employeeForm: FormGroup;
 
   constructor(
