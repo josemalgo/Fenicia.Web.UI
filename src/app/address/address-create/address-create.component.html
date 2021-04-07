@@ -1,0 +1,46 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="500px" fxFlex.xs="100%">
+        <mat-card-title>Create a new address</mat-card-title>
+        <form [formGroup]="addressForm" autocomplete="off" novalidate (ngSubmit)="createAddress(addressForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-card-content>
+                
+                <mat-form-field appearance="fill">
+                    <input matInput type="text" placeholder="Address" formControlName="description" id="description" required>
+                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('description', 'required')">Address is required</mat-error>
+                    <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" id="zipCode" required>
+                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('zipCode', 'required')">Zip Code is required</mat-error>
+                    <mat-error *ngIf="hasError('zipCode', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput type="text" placeholder="City" formControlName="city" id="city" required>
+                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
+                    <mat-error *ngIf="hasError('city', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Country</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">
+                            {{country.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('country', 'required')"> State is required </mat-error>
+                </mat-form-field>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!addressForm.valid">Create</button>
+                <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</section>

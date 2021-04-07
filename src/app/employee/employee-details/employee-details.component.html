@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-card-title>Employee details</mat-card-title>
+    <mat-card-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="employee.name" disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Surname</mat-label>
+        <input matInput [(ngModel)]="employee.surname" disabled>
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="employee.user.email" disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input matInput [(ngModel)]="employee.phone" disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Job</mat-label>
+        <input matInput [(ngModel)]="employee.job" disabled>
+    </mat-form-field>
+
+
+<app-employee-orders></app-employee-orders>
+</mat-card-content>
+</mat-card>
