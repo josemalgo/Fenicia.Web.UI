@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class CountryService {
 
-  private url: string = 'https://restcountries.eu/rest/v2/all';
+  private url: string = 'https://localhost:44334/api/countries';
 
   constructor(private http: HttpClient) { }
 

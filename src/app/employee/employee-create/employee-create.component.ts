@@ -45,7 +45,7 @@ export class EmployeeCreateComponent implements OnInit {
 
   fillCountries(): void {
     this.countryService.getCountries()
-      .subscribe((data: any[]) => this.countries = data);
+      .subscribe((data: any) => this.countries = data.countries);
   }
 
   public hasError = (controlName: string, errorName: string) =>{
@@ -75,7 +75,7 @@ export class EmployeeCreateComponent implements OnInit {
       description: employeeFormValue.description,
       zipCode: employeeFormValue.zipCode,
       city: employeeFormValue.city,
-      countryId: employeeFormValue.countryId
+      countryId: employeeFormValue.country
     }
 
     let employee: Employee = {

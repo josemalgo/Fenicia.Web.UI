@@ -78,7 +78,7 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Country</mat-label>
-                    <mat-select formControlName="countryId" id="countryId" required>
+                    <mat-select formControlName="country" id="country" required>
                         <mat-option *ngFor="let country of countries" [value]="country.id">
                             {{country.name}}
                         </mat-option>

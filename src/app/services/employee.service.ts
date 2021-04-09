@@ -34,8 +34,8 @@ export class EmployeeService {
     return this.http.post<Guid>(this.url, employee, httpOptions);
   }
 
-  updateEmployee(id: string, employee: Employee): Observable<Employee> {
-    return this.http.put<Employee>(`${this.url}/${id}`, employee, httpOptions);
+  updateEmployee(id: string, employee: any): Observable<Guid> {
+    return this.http.put<Guid>(`${this.url}/${id}`, employee, httpOptions);
   }
 
   deleteEmployee(id: string): Observable<Employee> {

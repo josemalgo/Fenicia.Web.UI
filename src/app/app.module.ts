@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductModule } from './product/product/product.module';
 import { CustomerModule } from './customer/customer.module';
+import { CategoryModule } from './category/category.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CustomerModule } from './customer/customer.module';
     ReactiveFormsModule,
     ProductModule,
     CustomerModule,
+    CategoryModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

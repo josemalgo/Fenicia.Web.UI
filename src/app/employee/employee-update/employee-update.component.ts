@@ -20,6 +20,7 @@ export class EmployeeUpdateComponent implements OnInit {
   hide = true;
   public employeeForm: FormGroup;
   public dataSource = new MatTableDataSource<Address>(); 
+  private userId: string;
 
   public displayedColumns = ['id', 'description', 'zipCode', 'city', 'country',
     'detail', 'update', 'delete'];
@@ -31,12 +32,13 @@ export class EmployeeUpdateComponent implements OnInit {
     this.getEmployeeById();
     this.employeeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.email]),
-      //password: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      password: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       dni: new FormControl('', [Validators.required, Validators.maxLength(9)]),
       name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       surname: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       phone: new FormControl('', [Validators.required, Validators.maxLength(9)]),
       job: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      salary: new FormControl('', [Validators.required]),
     });
   }
 
@@ -51,14 +53,17 @@ export class EmployeeUpdateComponent implements OnInit {
         this.dataSource.data = data.employee.addresses;
         this.employeeForm.setValue({
           email: data.employee.email, 
+          password: data.employee.password,
           dni: data.employee.dni,
           name: data.employee.name,
           surname: data.employee.surname,
           phone: data.employee.phone,
-          job: data.employee.phone,
-          isAdmin: data.employee.isAdmin
+          job: data.employee.job,
+          salary: data.employee.salary
         });
-        });  
+        this.userId = data.employee.userId;
+        this.isAdmin = data.employee.isAdmin;
+      });  
     }
   }
   
@@ -77,44 +82,35 @@ export class EmployeeUpdateComponent implements OnInit {
   }
 
   private executeEmployeeEdit = (employeeFormValue) => {
-    //Id, updateRegisterUser{id, email, password}, dni, name surname, phone, job, isadmin
-    // let user: User = {
-    //   id: Guid.EMPTY,
-    //   email: employeeFormValue.email,
-    //   password: employeeFormValue.password
-    // }
+    let user: User = {
+      id: this.userId,
+      email: employeeFormValue.email,
+      password: employeeFormValue.password
+    };
 
-    // let address: Address = {
-    //   id: Guid.EMPTY,
-    //   description: employeeFormValue.description,
-    //   zipCode: employeeFormValue.zipCode,
-    //   city: employeeFormValue.city,
-    //   countryId: employeeFormValue.countryId
-    // }
+    type EmployeeUpdate = Omit<Employee, "address">;
+    let employee: EmployeeUpdate = {
+      id: this.activatedRoute.snapshot.paramMap.get('id'),
+      user: user,
+      dni: employeeFormValue.dni,
+      name: employeeFormValue.name,
+      surname: employeeFormValue.surname,
+      phone: employeeFormValue.phone,
+      job: employeeFormValue.job,
+      isAdmin: this.isAdmin,
+      salary: employeeFormValue.salary
+    }
 
-    // let employee: Employee = {
-    //   id: Guid.EMPTY,
-    //   dni: employeeFormValue.dni,
-    //   name: employeeFormValue.name,
-    //   surname: employeeFormValue.surname,
-    //   phone: employeeFormValue.phone,
-    //   isAdmin: employeeFormValue.isAdmin,
-    //   job: employeeFormValue.job,
-    //   salary: employeeFormValue.salary,
-    //   address: address,
-    //   user: user
-    // }
- 
-    // this.employeeService.addEmployee(employee)
-    //   .subscribe(res => {
-    //     //this is temporary, until we create our dialogs
-    //     this.location.back();
-    //   },
-    //   (error => {
-    //     //temporary as well
-    //     this.location.back();
-    //   })
-    // )
+    this.employeeService.updateEmployee(employee.id, employee)
+      .subscribe(res => {
+        //this is temporary, until we create our dialogs
+        this.location.back();
+      },
+      (error => {
+        //temporary as well
+        this.location.back();
+      })
+    )
   }
 
   redirectToDetails(id: Guid): void {

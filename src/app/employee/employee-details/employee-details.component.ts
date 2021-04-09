@@ -13,7 +13,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-  public employee: any;
   public employeeForm: FormGroup;
 
   constructor(
@@ -31,10 +30,8 @@ export class EmployeeDetailsComponent implements OnInit {
       surname: new FormControl(),
       phone: new FormControl(),
       job: new FormControl(),
-      description: new FormControl(),
-      zipCode: new FormControl(),
-      city: new FormControl(),
     });
+    this.employeeForm.disable();
   }
 
   getEmployee(): void {
@@ -44,7 +41,15 @@ export class EmployeeDetailsComponent implements OnInit {
     }
     else{
       this.employeeService.getEmployeesById(id)
-        .subscribe((data: any) => this.employee = data.employee);
+        .subscribe((data: any) =>
+          this.employeeForm.setValue({
+            email: data.employee.user.email, 
+            dni: data.employee.dni,
+            name: data.employee.name,
+            surname: data.employee.surname,
+            phone: data.employee.phone,
+            job: data.employee.phone,
+        }));
     }
   }
 

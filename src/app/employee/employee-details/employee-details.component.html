@@ -1,33 +1,40 @@
 <mat-card>
     <mat-card-title>Employee details</mat-card-title>
-    <mat-card-content>
-    <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="employee.name" disabled>
-    </mat-form-field>
+    <form [formGroup]="employeeForm" autocomplete="off"
+        fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="dni" id="dni" disabled>
+            </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Surname</mat-label>
-        <input matInput [(ngModel)]="employee.surname" disabled>
-    </mat-form-field>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" id="name" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Surname</mat-label>
+                <input matInput formControlName="surname" id="surname" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" id="email" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" id="phone" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Job</mat-label>
+                <input matInput formControlName="job" id="job" disabled>
+            </mat-form-field>
 
 
-    <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="employee.email" disabled>
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Phone</mat-label>
-        <input matInput [(ngModel)]="employee.phone" disabled>
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Job</mat-label>
-        <input matInput [(ngModel)]="employee.job" disabled>
-    </mat-form-field>
-
-
-<app-employee-orders></app-employee-orders>
-</mat-card-content>
+            <app-employee-orders></app-employee-orders>
+        </mat-card-content>
+    </form>
 </mat-card>
