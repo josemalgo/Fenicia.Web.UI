@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product.model';
+import { Product } from '../models/products/product.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Guid } from 'guid-typescript';
+import { ProductUpdate } from '../models/products/productUpdate.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -33,7 +34,7 @@ export class ProductService {
     return this.http.post<Guid>(this.url, product, httpOptions);
   }
 
-  updateProduct(id: string, product: Product): Observable<Product> {
+  updateProduct(id: string, product: ProductUpdate): Observable<Product> {
     return this.http.put<Product>(`${this.url}/${id}`, product, httpOptions);
   }
 

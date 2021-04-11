@@ -6,22 +6,26 @@
             <mat-card-content>
 
                 <mat-form-field appearance="fill">
+                    <mat-label>Name</mat-label>
                     <input matInput type="text" placeholder="Name" formControlName="name" id="name" required>
                     <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
                     <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
+                    <mat-label>Price</mat-label>
                     <input matInput type="number" placeholder="Price" formControlName="price" id="price" required>
                     <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
+                    <mat-label>IVA</mat-label>
                     <input matInput type="number" placeholder="IVA" formControlName="iva" id="iva" required>
                     <mat-error *ngIf="hasError('iva', 'required')">IVA is required</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
+                    <mat-label>Description</mat-label>
                     <textarea matInput placeholder="Description" formControlName="description" id="description"
                         required></textarea>
                     <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
@@ -29,6 +33,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
+                    <mat-label>Stock</mat-label>
                     <input matInput type="number" placeholder="Stock" formControlName="stock" id="stock" required>
                     <mat-error *ngIf="hasError('stock', 'required')">Stock is required</mat-error>
                 </mat-form-field>

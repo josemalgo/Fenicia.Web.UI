@@ -37,7 +37,7 @@ export class CategoryService {
     return this.http.put<Guid>(`${this.url}/${id}`, category, httpOptions);
   }
 
-  update(id: string): Observable<Guid> {
+  deleteCategory(id: string): Observable<Guid> {
     return this.http.delete<Guid>(`${this.url}/${id}`, httpOptions)
   }
 

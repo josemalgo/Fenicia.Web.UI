@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductModule } from './product/product/product.module';
 import { CustomerModule } from './customer/customer.module';
 import { CategoryModule } from './category/category.module';
+import { SharedModule } from './shared/shared.module';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { CategoryModule } from './category/category.module';
     ProductModule,
     CustomerModule,
     CategoryModule,
+    SharedModule,
+    OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent],

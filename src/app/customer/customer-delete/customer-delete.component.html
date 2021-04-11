@@ -1,1 +1,7 @@
-<p>customer-delete works!</p>
+<div mat-dialog-content>
+    <p>Are you sure want to delete?</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+</div>

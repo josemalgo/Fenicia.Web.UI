@@ -11,8 +11,4 @@ export class EmployeeDeleteComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  onNoClick(): void {
-  }
-
 }

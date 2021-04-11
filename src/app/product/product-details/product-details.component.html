@@ -1,1 +1,43 @@
-<p>product-details works!</p>
+<mat-card>
+    <mat-card-title>Employee details</mat-card-title>
+    <form [formGroup]="productForm" autocomplete="off" fxLayout="column wrap" fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>Id</mat-label>
+                <input matInput formControlName="id" id="id" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" id="name" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price" id="price" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>IVA</mat-label>
+                <input matInput formControlName="iva" id="iva" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" id="description" disabled></textarea>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Stock</mat-label>
+                <input matInput formControlName="stock" id="stock" disabled>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Category</mat-label>
+                <input matInput formControlName="nameCategory" id="nameCategory" disabled>
+            </mat-form-field>
+            
+        </mat-card-content>
+    </form>
+</mat-card>

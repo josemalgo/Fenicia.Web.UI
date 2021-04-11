@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'product', loadChildren: () => import('../product/product/product.module').then(m => m.ProductModule)},
   { path: 'customer', loadChildren: () => import('../customer/customer.module').then(m => m.CustomerModule)},
   { path: 'category', loadChildren: () => import('../category/category.module').then(m => m.CategoryModule)},
+  { path: 'order', loadChildren: () => import('../order/order.module').then(m => m.OrderModule)},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

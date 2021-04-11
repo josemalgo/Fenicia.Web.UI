@@ -1,1 +1,92 @@
-<p>customer-update works!</p>
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="100%" fxFlex.xs="100%">
+    <mat-card-title>Create a new customer</mat-card-title>
+    <form [formGroup]="customerForm" autocomplete="off" novalidate (ngSubmit)="updateCustomer(customerForm.value)"
+      fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-card-content>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="Email" formControlName="email" id="email" required>
+          <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+          <mat-error *ngIf="hasError('email', 'maxlength')">You have more than 60 characters</mat-error>
+          <mat-error *ngIf="hasError('email', 'email')">Email is not valid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>trade name</mat-label>
+          <input matInput type="text" placeholder="Trade name" formControlName="tradeName" id="tradeName" required>
+          <mat-error *ngIf="hasError('tradeName', 'required')">Trade name is required</mat-error>
+          <mat-error *ngIf="hasError('tradeName', 'maxlength')">You have more than 60 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fiscal name</mat-label>
+          <input matInput type="text" placeholder="Fiscal name" formControlName="fiscalName" id="fiscalName" required>
+          <mat-error *ngIf="hasError('fiscalName', 'required')">Fiscal name is required</mat-error>
+          <mat-error *ngIf="hasError('fiscalName', 'maxlength')">You have more than 60 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>NIF</mat-label>
+          <input matInput type="text" placeholder="NIF" formControlName="nif" id="nif" required>
+          <mat-error *ngIf="hasError('nif', 'required')">NIF is required</mat-error>
+          <mat-error *ngIf="hasError('nif', 'maxlength')">You have more than 9 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Phone</mat-label>
+          <input matInput type="number" placeholder="Phone" formControlName="phone" id="phone" required>
+          <mat-error *ngIf="hasError('phone', 'required')">Phone is required</mat-error>
+          <mat-error *ngIf="hasError('phone', 'maxlength')">You have more than 9 characters</mat-error>
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+          <ng-container matColumnDef="zipCode">
+            <th mat-header-cell *matHeaderCellDef> Zip Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.zipCode}} </td>
+          </ng-container>
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+          </ng-container>
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef> Country </th>
+            <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+          </ng-container>
+          <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef> Update </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+                <mat-icon class="mat-18">system_update</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!customerForm.valid">Update</button>
+        <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

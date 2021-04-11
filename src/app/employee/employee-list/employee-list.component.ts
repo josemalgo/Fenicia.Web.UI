@@ -55,12 +55,17 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        this.employeeService.deleteEmployee(id)
+          .subscribe(() => {
+            this.getEmployees();
+          });
       }
     })
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   public doFilter = (value: string) => {

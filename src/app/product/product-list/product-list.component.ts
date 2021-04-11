@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table';
 import { Guid } from 'guid-typescript';
-import { Product } from '../../models/product.model';
+import { Product } from '../../models/products/product.model';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 
@@ -42,6 +42,8 @@ export class ProductListComponent implements OnInit {
   }
 
   redirectToUpdate(id: Guid): void {
+    let url: string = `/product/update/${id}`;
+    this.router.navigate([url]);
   }
 
   redirectToDelete(id: Guid): void {
@@ -49,6 +51,7 @@ export class ProductListComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   public doFilter = (value: string) => {

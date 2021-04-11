@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { Employee } from '../../models/employee.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EmployeeService } from '../../services/employee.service';
@@ -56,6 +54,5 @@ export class EmployeeDetailsComponent implements OnInit {
   back(): void {
     this.location.back();
   }
-
 
 }

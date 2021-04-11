@@ -8,11 +8,15 @@ import { CategoryRoutingModule } from './category-routing/category-routing.modul
 
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
+import { CategoryUpdateComponent } from './category-update/category-update.component';
+import { CategoryDeleteComponent } from './category-delete/category-delete.component';
 
 @NgModule({
   declarations: [
     CategoryListComponent,
-    CategoryCreateComponent
+    CategoryCreateComponent,
+    CategoryUpdateComponent,
+    CategoryDeleteComponent
   ],
   imports: [
     CommonModule,

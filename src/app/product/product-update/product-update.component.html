@@ -1,1 +1,53 @@
-<p>product-update works!</p>
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="100%" fxFlex.xs="100%">
+        <mat-card-title>Create a new product</mat-card-title>
+        <form [formGroup]="productForm" autocomplete="off" novalidate (ngSubmit)="updateProduct(productForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-card-content>
+
+                <mat-form-field appearance="fill">
+                    <input matInput type="text" placeholder="Name" formControlName="name" id="name" required>
+                    <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+                    <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput type="number" placeholder="Price" formControlName="price" id="price" required>
+                    <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput type="number" placeholder="IVA" formControlName="iva" id="iva" required>
+                    <mat-error *ngIf="hasError('iva', 'required')">IVA is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <textarea matInput placeholder="Description" formControlName="description" id="description"
+                        required></textarea>
+                    <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+                    <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 500 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <input matInput type="number" placeholder="Stock" formControlName="stock" id="stock" required>
+                    <mat-error *ngIf="hasError('stock', 'required')">Stock is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Categories</mat-label>
+                    <mat-select formControlName="category" id="category" required>
+                        <mat-option *ngFor="let category of categories" [value]="category">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('category', 'required')"> category is required </mat-error>
+                </mat-form-field>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!productForm.valid">Create</button>
+                <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</section>

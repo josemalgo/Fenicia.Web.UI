@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Customer } from '../models/customer.model';
+import { Customer } from '../models/customers/customer.model';
+import { CustomerUpdate } from '../models/customers/customerUpdate.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -7,7 +8,7 @@ import { Guid } from 'guid-typescript';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application-json'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -34,7 +35,7 @@ export class CustomerService {
     return this.http.post<Guid>(this.url, customer, httpOptions);
   }
 
-  updateCustomer(id: string, customer: Customer): Observable<Customer> {
+  updateCustomer(id: string, customer: CustomerUpdate): Observable<Customer> {
     return this.http.put<Customer>(`${this.url}/${id}`, customer, httpOptions);
   }
 
