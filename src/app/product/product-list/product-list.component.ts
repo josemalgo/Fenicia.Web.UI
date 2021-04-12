@@ -20,7 +20,7 @@ export class ProductListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  public displayedColumns = ['name', 'price', 'iva', 'description', 'stock', 
+  public displayedColumns = ['name', 'price', 'description', 'stock', 
     'detail', 'update', 'delete'];
 
   constructor(private productService: ProductService, private router: Router) {

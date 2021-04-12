@@ -1,1 +1,75 @@
-<p>order-create works!</p>
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="100%" fxFlex.xs="100%">
+        <mat-card-title>Create a new order</mat-card-title>
+        <form [formGroup]="orderForm" autocomplete="off" novalidate (ngSubmit)="createOrder(orderForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-card-content>
+                <fieldset>
+                    <legend>Order</legend>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Customer</mat-label>
+                        <mat-select formControlName="customer" id="customer" [ngModel]="customerId" required>
+                            <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                                {{customer.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('customer', 'required')"> Customer is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Employee</mat-label>
+                        <mat-select formControlName="employee" id="employee" required>
+                            <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                                {{employee.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('employee', 'required')"> Employee is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Delivery address</mat-label>
+                        <mat-select formControlName="address" id="address" required>
+                            <mat-option *ngFor="let address of addresses" [value]="address.id">
+                                {{address.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('address', 'required')"> Address is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status" id="status" required>
+                            <mat-option *ngFor="let status of statusOptions" [value]="status">
+                                {{status}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('status', 'required')"> Status is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Priority</mat-label>
+                        <mat-select formControlName="priority" id="priority" required>
+                            <mat-option *ngFor="let priority of priorityOptions" [value]="priority">
+                                {{priority}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('priority', 'required')"> Priority is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>IVA</mat-label>
+                        <input matInput type="number" placeholder="IVA" formControlName="iva" id="iva" required>
+                        <mat-error *ngIf="hasError('iva', 'required')">Phone is required</mat-error>
+                    </mat-form-field>
+                </fieldset>
+                
+                <app-order-order-item-list [data]="customerId"></app-order-order-item-list>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!orderForm.valid">Create</button>
+                <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</section>

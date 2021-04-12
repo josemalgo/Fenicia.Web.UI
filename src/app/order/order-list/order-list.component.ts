@@ -14,11 +14,12 @@ import { OrderDeleteComponent } from '../order-delete/order-delete.component';
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css']
 })
+
 export class OrderListComponent implements OnInit, AfterViewInit {
 
   public dataSource = new MatTableDataSource<Order>();
   orders: Order[];
-  displayedColumns = ['employee', 'customer', 'status', 'priority', 'numberItems', 'totalPrice'];
+  displayedColumns = ['employee', 'customer', 'status', 'priority', 'numberItems', 'totalPrice', 'detail', 'update', 'delete'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

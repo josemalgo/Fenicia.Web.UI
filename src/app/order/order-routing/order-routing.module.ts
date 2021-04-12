@@ -10,10 +10,10 @@ import { OrderUpdateComponent } from '../order-update/order-update.component';
 
 const routes: Routes = [
   { path: 'list', component: OrderListComponent},
-  { path: 'details', component: OrderDetailsComponent},
+  { path: 'details/:id', component: OrderDetailsComponent},
   { path: 'create', component: OrderCreateComponent},
-  { path: 'update', component: OrderUpdateComponent},
-  { path: 'delete', component: OrderDeleteComponent}
+  { path: 'update/:id', component: OrderUpdateComponent},
+  { path: 'delete/:id', component: OrderDeleteComponent}
 ];
 
 @NgModule({

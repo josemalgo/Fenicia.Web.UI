@@ -30,7 +30,6 @@ export class ProductUpdateComponent implements OnInit {
     this.productForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       price: new FormControl('', [Validators.required]),
-      iva: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
       stock: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
@@ -52,7 +51,6 @@ export class ProductUpdateComponent implements OnInit {
         this.productForm.setValue({
           name: data.product.name,
           price: data.product.price,
-          iva: data.product.iva,
           description: data.product.description,
           stock: data.product.stock,
           category: data.product.category
@@ -78,7 +76,6 @@ export class ProductUpdateComponent implements OnInit {
       id: id,
       name: productFormValue.name,
       price: productFormValue.price,
-      iva: productFormValue.iva,
       description: productFormValue.description,
       stock: productFormValue.stock,
       categoryId: productFormValue.category.id,

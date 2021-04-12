@@ -18,6 +18,7 @@ import { CustomerModule } from './customer/customer.module';
 import { CategoryModule } from './category/category.module';
 import { SharedModule } from './shared/shared.module';
 import { OrderModule } from './order/order.module';
+import { OrderItemModule } from './order-item/order-item.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { OrderModule } from './order/order.module';
     CustomerModule,
     CategoryModule,
     SharedModule,
-    OrderModule
+    OrderModule,
+    OrderItemModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

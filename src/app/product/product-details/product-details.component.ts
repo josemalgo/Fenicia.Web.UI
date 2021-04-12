@@ -23,7 +23,6 @@ export class ProductDetailsComponent implements OnInit {
       id: new FormControl(''),
       name: new FormControl(''),
       price: new FormControl(''),
-      iva: new FormControl(''),
       description: new FormControl(''),
       stock: new FormControl(''),
       nameCategory: new FormControl(''),
@@ -40,7 +39,6 @@ export class ProductDetailsComponent implements OnInit {
           id: data.product.id,
           name: data.product.name,
           price: data.product.price,
-          iva: data.product.iva,
           description: data.product.description,
           stock: data.product.stock,
           nameCategory: data.product.category.name

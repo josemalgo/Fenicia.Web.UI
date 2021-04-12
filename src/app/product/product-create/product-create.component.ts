@@ -27,7 +27,6 @@ export class ProductCreateComponent implements OnInit {
     this.productForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       price: new FormControl('', [Validators.required]),
-      iva: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
       stock: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
@@ -59,7 +58,6 @@ export class ProductCreateComponent implements OnInit {
       id: Guid.EMPTY,
       name: productFormValue.name,
       price: productFormValue.price,
-      iva: productFormValue.iva,
       description: productFormValue.description,
       stock: productFormValue.stock,
       category: productFormValue.category,

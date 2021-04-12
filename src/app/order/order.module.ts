@@ -11,7 +11,8 @@ import { OrderCreateComponent } from './order-create/order-create.component';
 import { OrderUpdateComponent } from './order-update/order-update.component';
 import { OrderDeleteComponent } from './order-delete/order-delete.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
-
+import { OrderOrderItemAddComponent } from './order-create/order-order-item-add/order-order-item-add.component';
+import { OrderOrderItemListComponent } from './order-create/order-order-item-list/order-order-item-list.component';
 
 
 @NgModule({
@@ -21,6 +22,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     OrderUpdateComponent, 
     OrderDeleteComponent, 
     OrderDetailsComponent,
+    OrderOrderItemAddComponent,
+    OrderOrderItemListComponent
   ],
   imports: [
     CommonModule,
