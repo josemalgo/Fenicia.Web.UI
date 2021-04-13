@@ -8,7 +8,8 @@
                     <legend>Customer</legend>
                     <mat-form-field appearance="fill">
                         <mat-label>Customer</mat-label>
-                        <mat-select formControlName="customer" id="customer" (selectionChange)="loadNif($event.value)" required>
+                        <mat-select formControlName="customer" id="customer" (selectionChange)="loadNif($event.value)"
+                            required>
                             <mat-option *ngFor="let customer of customers" [value]="customer.id">
                                 {{customer.tradeName}}
                             </mat-option>
@@ -20,13 +21,13 @@
                         <mat-label>NIF</mat-label>
                         <input matInput type="text" placeholder="NIF" formControlName="nif" id="nif" required>
                     </mat-form-field>
-                    </fieldset>
+                </fieldset>
 
-                    <fieldset>
-                        <legend>Employee (optional)</legend>
+                <fieldset>
+                    <legend>Employee (optional)</legend>
                     <mat-form-field appearance="fill">
                         <mat-label>Employee</mat-label>
-                        <mat-select formControlName="employee" id="employee" required>
+                        <mat-select formControlName="employee" id="employee" (selectionChange)="loadDni($event.value)" required>
                             <mat-option *ngFor="let employee of employees" [value]="employee.id">
                                 {{employee.name}} - {{employee.dni}}
                             </mat-option>
@@ -35,8 +36,16 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
+                        <mat-label>DNI</mat-label>
+                        <input matInput type="text" placeholder="DNI" formControlName="dni" id="dni" required>
+                    </mat-form-field>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Delivery Address</legend>
+                    <mat-form-field appearance="fill">
                         <mat-label>Delivery address</mat-label>
-                        <mat-select formControlName="address" id="address" required>
+                        <mat-select formControlName="address" id="address" (selectionChange)="loadAddressDetail($event.value)" required>
                             <mat-option *ngFor="let address of addresses" [value]="address.id">
                                 {{address.description}}
                             </mat-option>
@@ -45,10 +54,28 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
+                        <mat-label>Zip Code</mat-label>
+                        <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" id="zipCode" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" placeholder="City" formControlName="city" id="city" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Country</mat-label>
+                        <input matInput type="text" placeholder="Country" formControlName="country" id="country" required>
+                    </mat-form-field>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Options</legend>
+                    <mat-form-field appearance="fill">
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="status" id="status" required>
-                            <mat-option *ngFor="let status of statusOptions" [value]="status">
-                                {{status}}
+                            <mat-option *ngFor="let status of statusOptions" [value]="status.id">
+                                {{status.name}}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="hasError('status', 'required')"> Status is required </mat-error>
@@ -57,8 +84,8 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Priority</mat-label>
                         <mat-select formControlName="priority" id="priority" required>
-                            <mat-option *ngFor="let priority of priorityOptions" [value]="priority">
-                                {{priority}}
+                            <mat-option *ngFor="let priority of priorityOptions" [value]="priority.id">
+                                {{priority.name}}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="hasError('priority', 'required')"> Priority is required </mat-error>
