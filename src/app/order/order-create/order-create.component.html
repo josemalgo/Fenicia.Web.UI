@@ -5,22 +5,30 @@
             fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
             <mat-card-content>
                 <fieldset>
-                    <legend>Order</legend>
+                    <legend>Customer</legend>
                     <mat-form-field appearance="fill">
                         <mat-label>Customer</mat-label>
-                        <mat-select formControlName="customer" id="customer" [ngModel]="customerId" required>
+                        <mat-select formControlName="customer" id="customer" (selectionChange)="loadNif($event.value)" required>
                             <mat-option *ngFor="let customer of customers" [value]="customer.id">
-                                {{customer.name}}
+                                {{customer.tradeName}}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="hasError('customer', 'required')"> Customer is required </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
+                        <mat-label>NIF</mat-label>
+                        <input matInput type="text" placeholder="NIF" formControlName="nif" id="nif" required>
+                    </mat-form-field>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Employee (optional)</legend>
+                    <mat-form-field appearance="fill">
                         <mat-label>Employee</mat-label>
                         <mat-select formControlName="employee" id="employee" required>
                             <mat-option *ngFor="let employee of employees" [value]="employee.id">
-                                {{employee.name}}
+                                {{employee.name}} - {{employee.dni}}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="hasError('employee', 'required')"> Employee is required </mat-error>
@@ -59,11 +67,15 @@
                     <mat-form-field appearance="fill">
                         <mat-label>IVA</mat-label>
                         <input matInput type="number" placeholder="IVA" formControlName="iva" id="iva" required>
-                        <mat-error *ngIf="hasError('iva', 'required')">Phone is required</mat-error>
+                        <mat-error *ngIf="hasError('iva', 'required')">IVA is required</mat-error>
                     </mat-form-field>
                 </fieldset>
-                
-                <app-order-order-item-list [data]="customerId"></app-order-order-item-list>
+
+                <fieldset>
+                    <legend>Order Items</legend>
+                    <app-order-order-item-list (newItemsEvent)="addItems($event)">
+                    </app-order-order-item-list>
+                </fieldset>
 
             </mat-card-content>
             <mat-card-actions>

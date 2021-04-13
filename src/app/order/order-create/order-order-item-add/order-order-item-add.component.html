@@ -1,7 +1,7 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-card fxFlex="100%" fxFlex.xs="100%">
         <mat-card-title>Create a new order</mat-card-title>
-        <form [formGroup]="orderItemForm" autocomplete="off" novalidate (ngSubmit)="createOrderItem(orderForm.value)"
+        <form [formGroup]="orderItemForm" autocomplete="off" novalidate (ngSubmit)="createOrderItem(orderItemForm.value)"
             fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
             <mat-card-content>
                 <mat-form-field appearance="fill">

@@ -4,7 +4,7 @@ import { Product } from 'src/app/models/products/product.model';
 import { ProductService } from '../../../services/product.service';
 import { OrderItem } from '../../../models/OrderItem.model'; 
 import { FormGroup, FormControl , Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-order-order-item-add',
@@ -17,11 +17,12 @@ export class OrderOrderItemAddComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<OrderItem>();
   products: Product[];
 
-  constructor(private productService: ProductService, private location: Location) { }
+  constructor(private productService: ProductService,
+    public dialogRef: MatDialogRef<OrderOrderItemAddComponent>) { }
 
   ngOnInit(): void {
     this.orderItemForm = new FormGroup({
-      productId: new FormControl('', [Validators.required]),
+      product: new FormControl('', [Validators.required]),
       quantity: new FormControl('', [Validators.required]),
       discount: new FormControl('')
     });
@@ -41,12 +42,20 @@ export class OrderOrderItemAddComponent implements OnInit {
     let orderItem: OrderItem = {
       id: Guid.EMPTY,
       orderId: undefined,
-      productId: orderFormValue.productId,
+      productId: orderFormValue.product,
       quantity: orderFormValue.quantity,
       discount: orderFormValue.discount
     };
 
-    this.newItemEvent.emit(orderItem);
-
+    this.dialogRef.close(orderItem);
   }
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.orderItemForm.controls[controlName].hasError(errorName);
+  }
+
 }

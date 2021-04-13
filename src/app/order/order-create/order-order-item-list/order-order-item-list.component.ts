@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table'; 
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { OrderItem } from 'src/app/models/OrderItem.model';
 import { Location } from '@angular/common';
-import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderOrderItemAddComponent } from '../order-order-item-add/order-order-item-add.component';
 
@@ -16,12 +15,12 @@ import { OrderOrderItemAddComponent } from '../order-order-item-add/order-order-
 
 export class OrderOrderItemListComponent implements OnInit, AfterViewInit {
 
-  public dataSource: MatTableDataSource<OrderItem>;
+  public dataSource = new MatTableDataSource<OrderItem>();
   displayedColumns = ['product', 'description', 'quantity', 'unitPrice', 'discount', 'amount'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @Input() data: string;
+  @Output() newItemsEvent = new EventEmitter<OrderItem[]>();
 
   constructor(private location: Location, private dialog: MatDialog) { }
 
@@ -56,6 +55,16 @@ export class OrderOrderItemListComponent implements OnInit, AfterViewInit {
   public onCreateDialog = () => {
     const dialogRef = this.dialog.open(OrderOrderItemAddComponent);
 
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.dataSource.data.push(result);
+        this.dataSource.data = this.dataSource.data;
+        this.emitEvent();
+      }
+    });
+  }
+
+  private emitEvent = () => {
+    this.newItemsEvent.emit(this.dataSource.data);
   }
 }
