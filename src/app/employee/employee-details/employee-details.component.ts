@@ -41,7 +41,7 @@ export class EmployeeDetailsComponent implements OnInit {
       this.employeeService.getEmployeesById(id)
         .subscribe((data: any) =>
           this.employeeForm.setValue({
-            email: data.employee.user.email, 
+            email: data.employee.email, 
             dni: data.employee.dni,
             name: data.employee.name,
             surname: data.employee.surname,

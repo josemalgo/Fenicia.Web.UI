@@ -19,10 +19,12 @@ import { CategoryModule } from './category/category.module';
 import { SharedModule } from './shared/shared.module';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
+import { AddressUpdateComponent } from './address/address-update/address-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddressUpdateComponent,
   ],
   imports: [
     BrowserModule,

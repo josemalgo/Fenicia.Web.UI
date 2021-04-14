@@ -16,7 +16,7 @@ import { CountryService } from '../../services/country.service';
 
 export class EmployeeCreateComponent implements OnInit {
 
-  public isAdmin: boolean = false;
+  public isAdmin: boolean;
   hide = true;
   countries: any[];
   public employeeForm: FormGroup;
@@ -84,7 +84,7 @@ export class EmployeeCreateComponent implements OnInit {
       name: employeeFormValue.name,
       surname: employeeFormValue.surname,
       phone: employeeFormValue.phone,
-      isAdmin: employeeFormValue.isAdmin,
+      isAdmin: this.isAdmin,
       job: employeeFormValue.job,
       salary: employeeFormValue.salary,
       address: address,
@@ -103,7 +103,7 @@ export class EmployeeCreateComponent implements OnInit {
     )
   }
 
-  public checkChanged = (event) => {
-    this.isAdmin = event.checked;
+  public OnChange($event):void {
+    this.isAdmin = $event.checked;
   }
 }

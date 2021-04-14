@@ -110,7 +110,7 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field> -->
                 <div>
-                    <mat-checkbox [checked]="isAdmin" color="primary">Is Admin</mat-checkbox>
+                    <mat-checkbox (change)="OnChange($event)" color="primary">Is Admin</mat-checkbox>
                 </div>
 
             </mat-card-content>

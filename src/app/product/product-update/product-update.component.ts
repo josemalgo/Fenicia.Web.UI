@@ -19,6 +19,7 @@ export class ProductUpdateComponent implements OnInit {
   public productForm: FormGroup;
   product: Product;
   categories: Category[];
+  categorySelected: Category;
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute, private location: Location,
@@ -54,8 +55,14 @@ export class ProductUpdateComponent implements OnInit {
           description: data.product.description,
           stock: data.product.stock,
           category: data.product.category
-        })
+        });
+
+        this.categorySelected = data.product.category;
       });
+  }
+
+  compareObjects(o1: any, o2: any): boolean {
+    return o1.name === o2.name && o1.id === o2.id;
   }
 
   onCancel(): void {

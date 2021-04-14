@@ -22,8 +22,7 @@ export class EmployeeUpdateComponent implements OnInit {
   public dataSource = new MatTableDataSource<Address>(); 
   private userId: string;
 
-  public displayedColumns = ['id', 'description', 'zipCode', 'city', 'country',
-    'detail', 'update', 'delete'];
+  public displayedColumns = ['id', 'description', 'zipCode', 'city', 'country', 'update', 'delete'];
 
   constructor(private employeeService: EmployeeService, private location: Location,
     private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -114,18 +113,19 @@ export class EmployeeUpdateComponent implements OnInit {
   }
 
   redirectToDetails(id: Guid): void {
-    let url: string = `/address/details/${id}`;
-    this.router.navigate([url]);
+    
   }
 
   redirectToUpdate(id: Guid): void {
+    let url: string = `/address/create`;
+    this.router.navigate([url]);
   }
 
   redirectToDelete(id: Guid): void {
   }
 
-  public checkChanged = (event) => {
-    this.isAdmin = event.checked;
+  public OnChange($event):void {
+    this.isAdmin = $event.checked;
   }
 
 }
