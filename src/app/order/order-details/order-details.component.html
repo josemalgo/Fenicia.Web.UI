@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-title>Order details</mat-card-title>
-    <form [formGroup]="orderForm" autocomplete="off"
-        fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <form [formGroup]="orderForm" autocomplete="off" fxLayout="column wrap" fxLayoutAlign="center center"
+        fxLayoutGap="10px">
         <mat-card-content>
             <fieldset>
                 <mat-form-field>
@@ -42,13 +42,8 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Fiscal name</mat-label>
-                    <input matInput formControlName="customerFiscalName" id="customerFiscalName" disabled>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="customerAddress" id="customerAddress" disabled>
+                    <mat-label>Nif</mat-label>
+                    <input matInput formControlName="customerNif" id="customerNif" disabled>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -60,8 +55,29 @@
                     <mat-label>Phone</mat-label>
                     <input matInput formControlName="customerPhone" id="customerPhone" disabled>
                 </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="customerAddress" id="customerAddress" disabled>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Zip Code</mat-label>
+                    <input matInput formControlName="customerZipCode" id="customerZipCode" disabled>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="customerCity" id="customerCity" disabled>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Country</mat-label>
+                    <input matInput formControlName="customerCountry" id="customerCountry" disabled>
+                </mat-form-field>
             </fieldset>
-            
+
+
             <fieldset>
                 <legend>SHIPING DETAILS</legend>
                 <mat-form-field>
@@ -89,34 +105,38 @@
                 <legend>ORDER DETAILS</legend>
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="productId">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
-                      <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+                        <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="productName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
+                        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="description">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name / Description </th>
-                      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
                     </ng-container>
                     <ng-container matColumnDef="quantity">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-                      <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+                        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
                     </ng-container>
                     <ng-container matColumnDef="unitPrice">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Price </th>
-                      <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Price </th>
+                        <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
                     </ng-container>
                     <ng-container matColumnDef="discount">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Discount </th>
-                      <td mat-cell *matCellDef="let element"> {{element.discount}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Discount </th>
+                        <td mat-cell *matCellDef="let element"> {{element.discount}} </td>
                     </ng-container>
                     <ng-container matColumnDef="amount">
-                      <th mat-header-cell *matHeaderCellDef> Amount </th>
-                      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                        <th mat-header-cell *matHeaderCellDef> Amount </th>
+                        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                  <mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6, 10, 20]">
-                  </mat-paginator>
+                </table>
+                <mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+                </mat-paginator>
             </fieldset>
 
             <fieldset>
@@ -133,7 +153,7 @@
                     <input matInput formControlName="totalPrice" id="totalPrice" disabled>
                 </mat-form-field>
             </fieldset>
-            
+
         </mat-card-content>
     </form>
 </mat-card>

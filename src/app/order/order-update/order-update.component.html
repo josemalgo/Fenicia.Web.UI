@@ -1,1 +1,126 @@
-<p>order-update works!</p>
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="100%" fxFlex.xs="100%">
+        <mat-card-title>Update Order</mat-card-title>
+        <form [formGroup]="orderForm" autocomplete="off" novalidate (ngSubmit)="updateOrder(orderForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-card-content>
+                <fieldset>
+                    <legend>Customer</legend>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Customer</mat-label>
+                        <mat-select formControlName="customer" id="customer" [compareWith]="compareObjects"
+                            [(ngModel)]="customerSelected" (selectionChange)="loadNif($event.value)" required>
+                            <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                                {{customer.tradeName}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('customer', 'required')"> Customer is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>NIF</mat-label>
+                        <input matInput type="text" placeholder="NIF" formControlName="nif" id="nif">
+                    </mat-form-field>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Employee (optional)</legend>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Employee</mat-label>
+                        <mat-select formControlName="employee" id="employee" [compareWith]="compareObjects"
+                            [(ngModel)]="employeeSelected" (selectionChange)="loadDni($event.value)">
+                            <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                                {{employee.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>DNI</mat-label>
+                        <input matInput type="text" placeholder="DNI" formControlName="dni" id="dni">
+                    </mat-form-field>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Delivery Address</legend>
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text" placeholder="Address" formControlName="description" id="description"
+                            required>
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('description', 'required')">Address is required</mat-error>
+                        <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 60 characters
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" id="zipCode"
+                            required>
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('zipCode', 'required')">Zip Code is required</mat-error>
+                        <mat-error *ngIf="hasError('zipCode', 'maxlength')">You have more than 60 characters</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text" placeholder="City" formControlName="city" id="city" required>
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
+                        <mat-error *ngIf="hasError('city', 'maxlength')">You have more than 60 characters</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country" id="country" [compareWith]="compareObjects"
+                            [(ngModel)]="countrySelected" required>
+                            <mat-option *ngFor="let country of countries" [value]="country.id">
+                                {{country.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('country', 'required')"> State is required </mat-error>
+                    </mat-form-field>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Options</legend>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status" id="status" [compareWith]="compareObjects"
+                            [(ngModel)]="statusSelected" required>
+                            <mat-option *ngFor="let status of statusOptions" [value]="status.id">
+                                {{status.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('status', 'required')"> Status is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Priority</mat-label>
+                        <mat-select formControlName="priority" id="priority" [compareWith]="compareObjects"
+                            [(ngModel)]="prioritySelected" required>
+                            <mat-option *ngFor="let priority of priorityOptions" [value]="priority.id">
+                                {{priority.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('priority', 'required')"> Priority is required </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>IVA</mat-label>
+                        <input matInput type="number" placeholder="IVA" formControlName="iva" id="iva" required>
+                        <mat-error *ngIf="hasError('iva', 'required')">IVA is required</mat-error>
+                    </mat-form-field>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Order Items</legend>
+                    <app-order-order-item-list (newItemsEvent)="addItems($event)">
+                    </app-order-order-item-list>
+                </fieldset>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!orderForm.valid">Update</button>
+                <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</section>

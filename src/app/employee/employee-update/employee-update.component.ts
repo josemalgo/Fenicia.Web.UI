@@ -1,4 +1,5 @@
 import { EmployeeService } from '../../services/employee.service';
+import { AddressService } from '../../services/address.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -8,6 +9,8 @@ import { Address } from '../../models/address.model';
 import { User } from '../../models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { AddressUpdateComponent } from '../../address/address-update/address-update.component';
 
 @Component({
   selector: 'app-employee-update',
@@ -25,7 +28,8 @@ export class EmployeeUpdateComponent implements OnInit {
   public displayedColumns = ['id', 'description', 'zipCode', 'city', 'country', 'update', 'delete'];
 
   constructor(private employeeService: EmployeeService, private location: Location,
-    private router: Router, private activatedRoute: ActivatedRoute) { }
+    private router: Router, private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog, private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.getEmployeeById();
@@ -116,9 +120,27 @@ export class EmployeeUpdateComponent implements OnInit {
     
   }
 
-  redirectToUpdate(id: Guid): void {
-    let url: string = `/address/create`;
-    this.router.navigate([url]);
+  redirectToUpdate(id: string): void {
+    const dialogRef = this.dialog.open(AddressUpdateComponent, {
+      data: id
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.addressService.updateAddress(id, result)
+          .subscribe(() => {
+            this.getAddressEmployeeById();
+          });
+      }
+    });
+  }
+
+  getAddressEmployeeById(): void {
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.employeeService.getEmployeesById(id)
+      .subscribe((data: any) => {
+        this.dataSource.data = data.employee.addresses;
+      })
   }
 
   redirectToDelete(id: Guid): void {

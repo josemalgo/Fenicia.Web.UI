@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Address } from '../../models/address.model';
 import { CountryService } from '../../services/country.service';
 import { AddressService } from '../../services/address.service';
 import { ActivatedRoute} from '@angular/router';
-import { identifierModuleUrl } from '@angular/compiler';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-address-update',
@@ -16,26 +16,26 @@ export class AddressUpdateComponent implements OnInit {
 
   countries: any[];
   public addressForm: FormGroup;
-  countrySelected: Address;
 
-  constructor(private location: Location, private countryService: CountryService,
-    private addressService: AddressService, private route: ActivatedRoute) { }
+  constructor(private countryService: CountryService, private addressService: AddressService, 
+    public dialogRef: MatDialogRef<AddressUpdateComponent>,
+    @Inject (MAT_DIALOG_DATA) public id: string) { }
 
   ngOnInit(): void {
-    this.getAddressById();
-    this.fillCountries();
+
     this.addressForm = new FormGroup({
       description: new FormControl('', [Validators.required]),
       zipCode: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       city: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       country: new FormControl('', [Validators.required]),
     });
+
+    this.fillCountries();
+    this.getAddressById();
   }
 
   getAddressById(): void {
-    let id = this.route.snapshot.paramMap.get("id");
-
-    this.addressService.getAddressById(id)
+    this.addressService.getAddressById(this.id)
       .subscribe((data: any) => {
         this.addressForm.setValue({
           description: data.address.description,
@@ -44,13 +44,12 @@ export class AddressUpdateComponent implements OnInit {
           country: data.address.country
         });
 
-        this.countrySelected = data.address;
       });
   }
 
   fillCountries(): void {
     this.countryService.getCountries()
-      .subscribe((data: any[]) => this.countries = data);
+      .subscribe((data: any) => this.countries = data.countries);
   }
 
   public hasError = (controlName: string, errorName: string) =>{
@@ -58,11 +57,7 @@ export class AddressUpdateComponent implements OnInit {
   }
 
   public onCancel = () => {
-    this.location.back();
-  }
-
-  compareObjects(o1: any, o2: any): boolean {
-    return o1.name === o2.name && o1.id === o2.id;
+    this.dialogRef.close();
   }
 
   public updateAddress(addressFormValue): void {
@@ -72,17 +67,15 @@ export class AddressUpdateComponent implements OnInit {
   }
 
   private executeAddressUpdation(addressFormValue): void {
-    let id = this.route.snapshot.paramMap.get("id");
-    var address: Address = {
-      id: id,
+    let address: Address = {
+      id: this.id,
       description: addressFormValue.description,
       zipCode: addressFormValue.zipCode,
       city: addressFormValue.city,
-      countryId: addressFormValue.countryId
+      countryId: addressFormValue.country
     }
 
-    this.addressService.updateAddress(id, address)
-      .subscribe();
+    this.dialogRef.close(address);
   }
 
 }

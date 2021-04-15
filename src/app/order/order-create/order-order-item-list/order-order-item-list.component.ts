@@ -16,7 +16,7 @@ import { OrderOrderItemAddComponent } from '../order-order-item-add/order-order-
 export class OrderOrderItemListComponent implements OnInit, AfterViewInit {
 
   public dataSource = new MatTableDataSource<OrderItem>();
-  displayedColumns = ['product', 'description', 'quantity', 'unitPrice', 'discount', 'amount'];
+  displayedColumns = ['product', 'description', 'quantity', 'unitPrice', 'discount', 'amount', 'update', 'delete'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

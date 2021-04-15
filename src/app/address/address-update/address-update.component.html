@@ -13,10 +13,9 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" id="zipCode" required>
+                    <input matInput type="number" placeholder="Zip Code" formControlName="zipCode" id="zipCode" required>
                     <mat-hint align="end">Not more then 60 characters long.</mat-hint>
                     <mat-error *ngIf="hasError('zipCode', 'required')">Zip Code is required</mat-error>
-                    <mat-error *ngIf="hasError('zipCode', 'maxlength')">You have more than 60 characters</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
@@ -28,8 +27,7 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Country</mat-label>
-                    <mat-select formControlName="country" id="country" [compareWith]="compareObjects"
-                    [(ngModel)]="countrySelected" required>
+                    <mat-select formControlName="country" id="country" required>
                         <mat-option *ngFor="let country of countries" [value]="country.id">
                             {{country.name}}
                         </mat-option>

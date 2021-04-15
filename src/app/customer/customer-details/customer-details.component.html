@@ -1,1 +1,38 @@
-<p>customer-details works!</p>
+<mat-card>
+
+    <mat-card-title>Customer details</mat-card-title>
+    <form [formGroup]="customerForm" autocomplete="off" fxLayout="column wrap" fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>Trade Name</mat-label>
+                <input matInput formControlName="tradeName" id="tradeName" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Fiscal Name</mat-label>
+                <input matInput formControlName="fiscalName" id="fiscalName" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>NIF</mat-label>
+                <input matInput formControlName="nif" id="nif" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" id="email" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" id="phone" disabled>
+            </mat-form-field>
+
+            <app-customer-order>
+            </app-customer-order>
+        </mat-card-content>
+
+    </form>
+
+</mat-card>

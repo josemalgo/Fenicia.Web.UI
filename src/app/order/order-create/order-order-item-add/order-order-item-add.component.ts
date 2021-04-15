@@ -14,7 +14,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class OrderOrderItemAddComponent implements OnInit {
 
   public orderItemForm: FormGroup;
-  @Output() newItemEvent = new EventEmitter<OrderItem>();
   products: Product[];
 
   constructor(private productService: ProductService,
@@ -34,7 +33,7 @@ export class OrderOrderItemAddComponent implements OnInit {
     this.productService.getProducts()
       .subscribe((data: any) => {
         this.products = data.products;
-      })
+      });
   }
 
   public createOrderItem = (orderFormValue) => {

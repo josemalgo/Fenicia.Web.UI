@@ -11,6 +11,7 @@ import { CustomerUpdateComponent } from './customer-update/customer-update.compo
 import { CustomerDeleteComponent } from './customer-delete/customer-delete.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { CustomerOrderComponent } from './customer-details/customer-order/customer-order.component';
 
 
 
@@ -20,7 +21,8 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
     CustomerUpdateComponent, 
     CustomerDeleteComponent, 
     CustomerListComponent, 
-    CustomerDetailsComponent,
+    CustomerDetailsComponent, 
+    CustomerOrderComponent,
   ],
   imports: [
     CommonModule,

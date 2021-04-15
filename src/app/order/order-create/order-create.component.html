@@ -27,48 +27,55 @@
                     <legend>Employee (optional)</legend>
                     <mat-form-field appearance="fill">
                         <mat-label>Employee</mat-label>
-                        <mat-select formControlName="employee" id="employee" (selectionChange)="loadDni($event.value)" required>
+                        <mat-select formControlName="employee" id="employee" (selectionChange)="loadDni($event.value)">
                             <mat-option *ngFor="let employee of employees" [value]="employee.id">
-                                {{employee.name}} - {{employee.dni}}
+                                {{employee.name}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="hasError('employee', 'required')"> Employee is required </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
                         <mat-label>DNI</mat-label>
-                        <input matInput type="text" placeholder="DNI" formControlName="dni" id="dni" required>
+                        <input matInput type="text" placeholder="DNI" formControlName="dni" id="dni">
                     </mat-form-field>
                 </fieldset>
 
                 <fieldset>
                     <legend>Delivery Address</legend>
                     <mat-form-field appearance="fill">
-                        <mat-label>Delivery address</mat-label>
-                        <mat-select formControlName="address" id="address" (selectionChange)="loadAddressDetail($event.value)" required>
-                            <mat-option *ngFor="let address of addresses" [value]="address.id">
-                                {{address.description}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="hasError('address', 'required')"> Address is required </mat-error>
+                        <input matInput type="text" placeholder="Address" formControlName="description" id="description"
+                            required>
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('description', 'required')">Address is required</mat-error>
+                        <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 60 characters
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
-                        <mat-label>Zip Code</mat-label>
-                        <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" id="zipCode" required>
+                        <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" id="zipCode"
+                            required>
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('zipCode', 'required')">Zip Code is required</mat-error>
+                        <mat-error *ngIf="hasError('zipCode', 'maxlength')">You have more than 60 characters</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
-                        <mat-label>City</mat-label>
                         <input matInput type="text" placeholder="City" formControlName="city" id="city" required>
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
+                        <mat-error *ngIf="hasError('city', 'maxlength')">You have more than 60 characters</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
                         <mat-label>Country</mat-label>
-                        <input matInput type="text" placeholder="Country" formControlName="country" id="country" required>
+                        <mat-select formControlName="country" id="country" required>
+                            <mat-option *ngFor="let country of countries" [value]="country.id">
+                                {{country.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('country', 'required')"> State is required </mat-error>
                     </mat-form-field>
                 </fieldset>
-
                 <fieldset>
                     <legend>Options</legend>
                     <mat-form-field appearance="fill">

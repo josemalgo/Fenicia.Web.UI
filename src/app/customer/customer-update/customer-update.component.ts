@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerUpdate } from '../../models/customers/customerUpdate.model';
 import { CustomerService } from '../../services/customer.service';
+import { AddressService } from '../../services/address.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { Address } from '../../models/address.model';
 import { Guid } from 'guid-typescript';
+import { MatDialog } from '@angular/material/dialog';
+import { AddressUpdateComponent } from '../../address/address-update/address-update.component';
 
 @Component({
   selector: 'app-customer-update',
@@ -20,7 +23,8 @@ export class CustomerUpdateComponent implements OnInit {
   displayedColumns = ['description', 'zipCode', 'city', 'country', 'update', 'delete'];
 
   constructor(private customerService: CustomerService, private location: Location,
-    private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, private router: Router,
+    private dialog: MatDialog, private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.getCustomerById();
@@ -86,6 +90,29 @@ export class CustomerUpdateComponent implements OnInit {
   redirectToDetails(id: Guid): void {
     let url: string = `/address/details/${id}`;
     this.router.navigate([url]);
+  }
+
+  redirectToUpdate(id: string): void {
+    const dialogRef = this.dialog.open(AddressUpdateComponent, {
+      data: id
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.addressService.updateAddress(id, result)
+          .subscribe(() => {
+            this.getAddressEmployeeById();
+          });
+      }
+    });
+  }
+
+  getAddressEmployeeById(): void {
+    let id = this.route.snapshot.paramMap.get('id');
+    this.customerService.getCustomersById(id)
+      .subscribe((data: any) => {
+        this.dataSource.data = data.customer.addresses;
+      })
   }
 
   public hasError = (controlName: string, errorName: string) => {

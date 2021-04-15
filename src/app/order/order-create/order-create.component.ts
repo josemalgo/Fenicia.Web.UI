@@ -11,6 +11,8 @@ import { Order } from 'src/app/models/order.model';
 import { Customer } from 'src/app/models/customers/customer.model';
 import { Employee } from 'src/app/models/employee.model';
 import { Address } from '../../models/address.model';
+import { Country } from '../../models/country.model';
+import { CountryService } from '../../services/country.service';
 import { Location } from '@angular/common';
 import { OrderItem } from 'src/app/models/OrderItem.model';
 
@@ -25,32 +27,33 @@ export class OrderCreateComponent implements OnInit {
   
   customers: Customer[];
   employees: Employee[];
-  addresses: Address[];
+  countries: Country[];
   orderItems: OrderItem[];
   statusOptions: any[];
-  priorityOptions: any[] = [2];
+  priorityOptions: any[];
 
   constructor(private orderService: OrderService, private customerService: CustomerService,
     private employeeService: EmployeeService, private location: Location,
     private statusService: StatusService, private priorityService: PriorityService,
-    private addressService: AddressService) { }
+    private countryService: CountryService) { }
 
   ngOnInit(): void {
     this.orderForm = new FormGroup({
       customer: new FormControl('', [Validators.required]),
       nif: new FormControl(''),
-      employee: new FormControl('', [Validators.required]),
+      employee: new FormControl(''),
       dni: new FormControl(''),
-      address: new FormControl('', [Validators.required]),
-      zipCode: new FormControl(''),
-      city: new FormControl(''),
-      country: new FormControl(''),
+      description: new FormControl('', [Validators.required]),
+      zipCode: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      city: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      country: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
       priority: new FormControl('', [Validators.required]),
       iva: new FormControl('', [Validators.required]),
     });
     this.getCustomers();
     this.getEmployees();
+    this.getCountries();
     this.getStatus();
     this.getPriority();
   }
@@ -80,7 +83,14 @@ export class OrderCreateComponent implements OnInit {
     this.priorityService.getPriority()
       .subscribe((data: any) => {
         this.priorityOptions = data.priorities;
-      })
+      });
+  }
+
+  getCountries(): void {
+    this.countryService.getCountries()
+      .subscribe((data: any) => {
+        this.countries = data.countries;
+      });
   }
 
   public hasError = (controlName: string, errorName: string) =>{
@@ -98,11 +108,23 @@ export class OrderCreateComponent implements OnInit {
   }
 
   private executeOrderCreation = (orderFormValue) => {
+    let address: Address = {
+      id: Guid.EMPTY,
+      description: orderFormValue.description,
+      zipCode: orderFormValue.zipCode,
+      city: orderFormValue.city,
+      countryId: orderFormValue.country
+    };
+    
+    if(orderFormValue.employee == ""){
+      orderFormValue.employee = Guid.EMPTY;
+    }
+
     let order: Order = {
       id: Guid.EMPTY,
       customerId: orderFormValue.customer,
       employeeId: orderFormValue.employee,
-      deliveryAddressId: orderFormValue.address,
+      deliveryAddress: address,
       priority: orderFormValue.priority,
       status: orderFormValue.status,
       iva: orderFormValue.iva,
@@ -110,7 +132,9 @@ export class OrderCreateComponent implements OnInit {
     };
 
     this.orderService.addOrder(order)
-      .subscribe();
+      .subscribe(() => {
+        this.location.back();
+      });
   }
 
   addItems(newItems: OrderItem[]): void {
@@ -123,8 +147,6 @@ export class OrderCreateComponent implements OnInit {
         this.orderForm.patchValue({
           nif: data.customer.nif
         });
-
-        this.addresses = data.customer.addresses
       });
   }
 
@@ -133,17 +155,6 @@ export class OrderCreateComponent implements OnInit {
       .subscribe((data: any) => {
         this.orderForm.patchValue({
           dni: data.employee.dni
-        });
-      });
-  }
-  
-  loadAddressDetail(id: string): void {
-    this.addressService.getAddressById(id)
-      .subscribe((data: any) => {
-        this.orderForm.patchValue({
-          zipCode: data.address.zipCode,
-          city: data.address.city,
-          country: data.address.country
         });
       });
   }

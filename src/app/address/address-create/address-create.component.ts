@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Address } from '../../models/address.model';
 import { CountryService } from '../../services/country.service';
+import { AddressService } from '../../services/address.service';
 import { Guid } from 'guid-typescript';
 
 @Component({
@@ -16,7 +17,8 @@ export class AddressCreateComponent implements OnInit {
   countries: any[];
   public addressForm: FormGroup;
 
-  constructor(private location: Location, private countryService: CountryService) { }
+  constructor(private location: Location, private countryService: CountryService,
+    private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.fillCountries();
@@ -57,6 +59,7 @@ export class AddressCreateComponent implements OnInit {
       countryId: addressFormValue.countryId
     }
 
-
+    this.addressService.addAddress(address)
+      .subscribe();
   }
  }

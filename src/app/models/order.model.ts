@@ -1,10 +1,11 @@
 import { OrderItem } from "./OrderItem.model";
+import { Address } from "./address.model";
 
 export interface Order {
     id: string,
-    customerId: number,
-    employeeId: number,
-    deliveryAddressId: number,
+    customerId: string,
+    employeeId: string,
+    deliveryAddress: Address,
     priority: number,
     status: number,
     iva: number,

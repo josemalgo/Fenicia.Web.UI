@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
-import { Order } from '../../models/order.model';
+import { OrderItem } from '../../models/orderItem.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -14,8 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OrderDetailsComponent implements OnInit, AfterViewInit {
 
-  public dataSource = new MatTableDataSource<Order>();
-  displayedColumns = ['productId', 'description', 'quantity', 'unitPrice', 'discount', 'amount' ];
+  public dataSource = new MatTableDataSource<OrderItem>();
+  displayedColumns = ['productId', 'productName', 'description', 'quantity', 'unitPrice', 'discount', 'amount' ];
   public orderForm: FormGroup;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -24,7 +24,6 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
   constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-   this.getOrderById();
     this.orderForm = new FormGroup({
       id: new FormControl(''),
       entryDate: new FormControl(''),
@@ -33,7 +32,8 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
       status: new FormControl(''),
       priority: new FormControl(''),
       customerTradeName: new FormControl(''),
-      customerFiscalName: new FormControl(''),
+      customerNif: new FormControl(''),
+      customerZipCode: new FormControl(''),
       customerAddress: new FormControl(''),
       customerCity: new FormControl(''),
       customerCountry: new FormControl(''),
@@ -48,14 +48,13 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
       totalPrice: new FormControl(''),
    });
    this.orderForm.disabled;
-
+   this.getOrderById();
   }
 
   getOrderById(): void {
     let id = this.route.snapshot.paramMap.get("id");
     this.orderService.getOrderById(id)
       .subscribe((data: any) => {
-        this.dataSource.data = data.order.orderitems;
         this.orderForm.setValue({
           id: data.order.id,
           entryDate: data.order.entryDate,
@@ -64,20 +63,23 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
           status: data.order.status,
           priority: data.order.priority,
           customerTradeName: data.order.customerTradeName,
-          customerFiscalName: data.order.customerFiscalName,
+          customerNif: data.order.customerNif,
+          customerZipCode: data.order.customerZipCode,
           customerAddress: data.order.customerAddress,
           customerCity: data.order.customerCity,
           customerCountry: data.order.customerCountry,
           customerPhone: data.order.customerPhone,
           customerEmail: data.order.customerEmail,
           deliveryAddress: data.order.deliveryAddress,
-          deliveryzipCode: data.order.deliveryZipCode,
+          deliveryZipCode: data.order.deliveryZipCode,
           deliveryCity: data.order.deliveryCity,
           deliveryCountry: data.order.deliveryCountry,
           subTotalPrice: data.order.subTotalPrice,
           iva: data.order.iva,
           totalPrice: data.order.totalPrice,
         });
+
+        this.dataSource.data = data.order.orderItems;
       })
   }
 
